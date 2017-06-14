@@ -1,0 +1,11 @@
+-- 데이터베이스 생성
+create database DB_FOXCHATTING;
+
+-- 유저 생성
+create user 'foxandsmile'@'%' identified by 'pray';
+
+-- 모든 권한 설정
+grant all privileges on *.* to 'foxandsmile'@'%';
+
+-- DB_DDAIGONG 관리 권한 설정
+grant all privileges on DB_FOXCHATTING.* to 'foxandsmile'@'%';

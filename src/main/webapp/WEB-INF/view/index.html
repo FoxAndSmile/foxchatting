@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/default/default">
+<head>
+    <title>Fox Chatting</title>
+    <link rel="stylesheet" th:href="@{/resources/css/landing.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <section class="hero is-fullheight is-dark">
+        <div class="hero-head">
+            <div class="container">
+                <nav class="nav">
+                    <div class="container">
+                        <div class="nav-left">
+                            <a class="nav-item" href="../index.html">
+                                Fox Chatting
+                            </a>
+                        </div>
+                        <span class="nav-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+                        <div class="nav-right nav-menu">
+                            <a class="nav-item">
+                                About
+                            </a>
+                            <span class="nav-item">
+                                <a class="button is-default">
+                                  What is  Fox and Smile?
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-5">
+                        <figure class="image is-4by3">
+                            <img th:src="@{resources/images/fox_main_chat.jpg}" class="promo-img" alt="Description">
+                        </figure>
+                    </div>
+                    <div class="column is-6 is-offset-1">
+                        <h1 class="title is-2">
+                            Introducing Chatting Service
+                        </h1>
+                        <h2 class="subtitle is-4">
+                            It's time to talk to somebody.
+                        </h2>
+                        <br>
+                        <p class="control has-addons has-text-centered">
+                            <input class="input is-expanded is-large" type="text" placeholder="You're Nick Name">
+                            <a class="button is-large is-danger is-outlined">
+                                Join this
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-foot">
+            <div class="container">
+                <div class="tabs is-centered">
+                    <ul>
+                        <li><a href="http://bulma.io">Made with bulma</a></li>
+                        <li><a>Copyright 2016 Bulma</a></li>
+                        <li><a href="http://unsplash.com">Images via unsplash</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

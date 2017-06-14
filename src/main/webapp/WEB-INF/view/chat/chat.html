@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/default/default" style="margin: 0; height: 100%; overflow: hidden">
+<head>
+    <title>Fox Chatting</title>
+    <link rel="stylesheet" th:href="@{/resources/css/blog.css}" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="columns is-fullheight">
+        <div class="column left-side is-half-desktop is-hidden-touch"  style="padding:0px;">
+            <section class="hero is-fullheight is-default is-bold">
+                <div class="hero-body">
+                    <div class="container has-text-centered">
+                        <div class="title is-1">My Blog</div>
+                        <div class="title is-5">A blog about stuff</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="column right-side is-half-desktop is-full-mobile" style="padding:0px;">
+            <nav class="nav is-hidden-tablet">
+                <div class="nav-left">
+                    <a class="nav-item is-brand" href="#">
+                        Fox Chatting
+                    </a>
+                </div>
+
+                <div class="nav-center">
+                    <a class="nav-item" href="#">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+                    </a>
+                    <a class="nav-item" href="#">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+                    </a>
+                </div>
+
+                <span class="nav-toggle">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+
+                <div class="nav-right nav-menu">
+                    <a class="nav-item" href="#">
+                        Home
+                    </a>
+                    <a class="nav-item" href="#">
+                        Documentation
+                    </a>
+                    <a class="nav-item" href="#">
+                        Blog
+                    </a>
+
+                    <span class="nav-item">
+            <a class="button" >
+              <span class="icon">
+                <i class="fa fa-twitter"></i>
+              </span>
+              <span>Tweet</span>
+            </a>
+            <a class="button is-primary" href="#">
+              <span class="icon">
+                <i class="fa fa-download"></i>
+              </span>
+              <span>Download</span>
+            </a>
+          </span>
+                </div>
+            </nav>
+            <section class="hero is-fullheight is-default is-bold" style="padding: 20px 20px 0px 20px;">
+                <article class="media">
+                    <div id="messageList" class="media-content" style="height: 90vh; overflow-y: scroll;">
+                        <div class="content">
+                            <p>
+                                <strong>Barbara Middleton</strong>
+                                <br>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="field">
+                            <p class="control">
+                                <input id="message" type="text" class="input" placeholder="Add a comment..."></input>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+    <script>
+        (function(){
+            var $messageList = $('#messageList'),
+                socket = new SockJS('/stomp'), //endpoint 등록
+                stompClient = Stomp.over(socket);   //SockJS를 사용하여 client를 구성한다.
+
+            stompClient.connect({}, function(frame) {
+                // /topic/message라는 종착지로 subscribe하도록 설정함. 서버에서 /topic/message로 send할경우 여기에서 구독하다가 2번째 인자로 message를 넘겨준다.
+                stompClient.subscribe('/chat/message', function(data) {
+                    var message = data.body,
+                        html = '';
+
+                    html += '<div class="content">';
+                    html += '<p>';
+                    html += '<strong>Barbara Middleton</strong>';
+                    html += '<br>';
+                    html += message;
+                    html += '</p>';
+                    html += '</div>';
+
+                    $messageList.append(html)
+                });
+            });
+
+            $('#message').on('keydown', function (key) {
+                var url = 'http://localhost:8080/send/message?message=' + $(this).val();
+                if(key.keyCode === 13) {
+                    $.get(url);
+                }
+            });
+        }());
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+server:
+    port: 8080
+    context-path:
+
+# spring 설정
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/DB_FOXCHATTING
+        username: foxandsmile
+        password: pray
+    jpa:
+        hibernate:
+            ddl-auto: create-drop #update
+            show-sql: true
+
+# HTTP encoding (HttpEncodingProperties)
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    thymeleaf:
+        cache: false
+        enabled: true
+        mode: LEGACYHTML5
+        prefix: /WEB-INF/view/
+        suffix: .html
+
+#logging 설정
+logging:
+    level:
+        org.springframework.web: INFO
+        org.hibernate: INFO
+
+## Application 설정
+data:
+    attach:
+        path: resource/attache
